@@ -25,12 +25,12 @@ jobs:
       - name: Run chart-testing (list-changed)
         id: list-changed
         run: |
-          changed=$(ct list-changed)
+          changed=$(ct list-changed --remote origin --config .github/ct.yaml)
           if [[ -n "$changed" ]]; then
             echo "::set-output name=changed::true"
           fi
       - name: Run chart-testing (lint)
-        run: ct lint
+        run: ct lint --config .github/ct.yaml
 
   install-chart:
     name: install-chart
@@ -60,4 +60,4 @@ jobs:
       - name: Run chart-testing (install)
         uses: helm/chart-testing-action@v2.1.0
       - name: Run chart-testing (install)
-        run: ct install
+        run: ct install --config .github/ct.yaml
