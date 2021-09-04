@@ -4,8 +4,6 @@ on:
     branches:
       - master
       - gh-pages
-  release:
-    types: [published, created]
 
 jobs:
   testing_a:
