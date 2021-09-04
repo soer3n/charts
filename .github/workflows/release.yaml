@@ -3,8 +3,9 @@ on:
   push:
     branches:
       - master
+      - gh-pages
     paths:
-      - 'stable/**'
+      - 'testing/testing_a/**'
   release:
     types: [published, created]
 
