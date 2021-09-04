@@ -1,0 +1,6 @@
+dependencies:
+- name: testing-nested
+  repository: https://hub.soer3n.info/chartrepo/public
+  version: 0.1.0
+digest: sha256:7b12b5b3506d27d637ecf8dbf00bed4a46b4ed19003ad5563e9ae1967b480610
+generated: "2021-07-30T08:47:04.721132637Z"

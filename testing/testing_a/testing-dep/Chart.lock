@@ -1,0 +1,6 @@
+dependencies:
+- name: testing
+  repository: https://hub.soer3n.info/chartrepo/public
+  version: 0.1.0
+digest: sha256:a226e0b12749a6cbf8264ecb3a1621b6491a6e5b51711d08a11443e6f10a1d31
+generated: "2021-07-30T08:47:08.657286171Z"
