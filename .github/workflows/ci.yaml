@@ -36,6 +36,8 @@ jobs:
         uses: helm/kind-action@main
         with:
           node_image: kindest/node:${{ matrix.k8s }}
+      - name: Install python env
+        run: sudo apt-get update && sudo apt-get install -y python3.8-venv
       - name: Run chart-testing (install)
         uses: helm/chart-testing-action@main
         with:
