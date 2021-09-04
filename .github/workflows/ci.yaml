@@ -13,8 +13,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v1
-      - name: Install python env
-        run: sudo apt-get update && sudo apt-get install -y python3.8-venv
+      - name: Set up Helm
+        uses: azure/setup-helm@v1
+        with:
+          version: v3.4.0
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
       - name: Set up chart-testing
         uses: helm/chart-testing-action@v2.1.0
       - name: Run chart-testing (list-changed)
@@ -45,8 +50,13 @@ jobs:
         uses: helm/kind-action@main
         with:
           node_image: kindest/node:${{ matrix.k8s }}
-      - name: Install python env
-        run: sudo apt-get update && sudo apt-get install -y python3.8-venv
+      - name: Set up Helm
+        uses: azure/setup-helm@v1
+        with:
+          version: v3.4.0
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
       - name: Run chart-testing (install)
         uses: helm/chart-testing-action@v2.1.0
       - name: Run chart-testing (install)
