@@ -15,8 +15,17 @@ jobs:
         uses: actions/checkout@v1
       - name: Install python env
         run: sudo apt-get update && sudo apt-get install -y python3.8-venv
+      - name: Set up chart-testing
+        uses: helm/chart-testing-action@v2.1.0
+      - name: Run chart-testing (list-changed)
+        id: list-changed
+        run: |
+          changed=$(ct list-changed)
+          if [[ -n "$changed" ]]; then
+            echo "::set-output name=changed::true"
+          fi
       - name: Run chart-testing (lint)
-        uses: helm/chart-testing-action@main
+        run: ct lint
 
   install-chart:
     name: install-chart
@@ -39,7 +48,6 @@ jobs:
       - name: Install python env
         run: sudo apt-get update && sudo apt-get install -y python3.8-venv
       - name: Run chart-testing (install)
-        uses: helm/chart-testing-action@main
-        with:
-          command: install
-          config: .github/ct.yaml
+        uses: helm/chart-testing-action@v2.1.0
+      - name: Run chart-testing (install)
+        run: ct install
