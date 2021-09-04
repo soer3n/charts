@@ -4,14 +4,16 @@ on:
     branches:
       - master
       - gh-pages
-    paths:
-      - 'testing/testing_a/**'
   release:
     types: [published, created]
 
 jobs:
   testing_a:
     runs-on: self-hosted
+    strategy:
+      matrix:
+        charts:
+        - 'testing/testing_a/**'
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -19,14 +21,4 @@ jobs:
         uses: stefanprodan/helm-gh-pages@v1.4.1
         with:
           token: ${{ secrets.CR_TOKEN }}
-          charts_dir: stable
-  testing_b:
-    runs-on: self-hosted
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Publish Helm charts
-        uses: stefanprodan/helm-gh-pages@v1.4.1
-        with:
-          token: ${{ secrets.CR_TOKEN }}
-          charts_dir: stable
+          charts_dir: ${{ matrix.charts }}
