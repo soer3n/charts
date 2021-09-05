@@ -18,8 +18,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Publish Helm charts
-        uses: stefanprodan/helm-gh-pages@master
+        uses: helm/chart-releaser-action@v1.2.1
+        env:
+          CR_TOKEN: ${{ secrets.CR_TOKEN }}
         with:
-          token: ${{ secrets.CR_TOKEN }}
           charts_dir: ${{ matrix.charts }}
-          target_dir: ${{ matrix.charts }}
+          charts_repo_url: https://soer3n.github.io/charts/${{ matrix.charts}}
+          config: .github/ct.yaml
