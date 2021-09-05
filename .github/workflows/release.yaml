@@ -9,6 +9,9 @@ on:
 jobs:
   testing_a:
     runs-on: self-hosted
+    needs:
+    - lint-chart
+    - install-chart
     strategy:
       matrix:
         charts:
