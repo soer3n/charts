@@ -3,9 +3,9 @@ entries:
   testing-nested:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2021-09-05T10:42:20.299645966Z"
+    created: "2021-09-05T10:42:47.156401131Z"
     description: A Helm chart for Kubernetes
-    digest: d0f304286a03789b26a240f32fa8ca14f05b1f5f14a4fc47f6a3b8d6dc29c198
+    digest: 41c4827fb3d6d48456b98fb6d40a26f2cb9f76685a44bed1b675620c6b64427b
     name: testing-nested
     sources:
     - https://soer3n.github.io/charts/testing_b
@@ -13,4 +13,4 @@ entries:
     urls:
     - https://soer3n.github.io/charts/testing-nested-0.1.0.tgz
     version: 0.1.0
-generated: "2021-09-05T10:42:20.298085865Z"
+generated: "2021-09-05T10:42:47.153551852Z"
