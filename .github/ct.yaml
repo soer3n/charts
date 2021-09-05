@@ -1,7 +1,0 @@
-helm-extra-args: --timeout 600s
-# check-version-increment: true
-debug: true
-target-branch: gh-pages
-chart-dirs:
-- testing_a
-- testing_b
