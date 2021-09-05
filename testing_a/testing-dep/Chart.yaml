@@ -24,7 +24,7 @@ version: 0.1.0
 appVersion: "1.16.0"
 
 sources:
-- "https://soer3n.github.io/charts/testing_b"
+- "https://soer3n.github.io/charts/testing_a"
 
 dependencies:
 - name: testing
