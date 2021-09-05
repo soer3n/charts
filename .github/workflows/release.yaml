@@ -21,4 +21,5 @@ jobs:
         uses: stefanprodan/helm-gh-pages@master
         with:
           token: ${{ secrets.CR_TOKEN }}
-          charts_dir: ${{ matrix.charts }}
+          charts_dir: charts/${{ matrix.charts }}
+          target_dir: charts/${{ matrix.charts }}
