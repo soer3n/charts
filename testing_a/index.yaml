@@ -18,19 +18,6 @@ entries:
     urls:
     - https://soer3n.github.io/charts/testing_a/testing-0.1.0.tgz
     version: 0.1.0
-  testing-dep:
-  - apiVersion: v2
-    appVersion: 1.16.0
-    created: "2021-09-05T15:19:48.972275592Z"
-    description: A Helm chart for Kubernetes
-    digest: 9485db59035e4e6f1db24d7596fc06f317911e9e9223b55b87e05c646f58dfeb
-    name: testing-dep
-    sources:
-    - https://soer3n.github.io/charts/testing_b
-    type: application
-    urls:
-    - https://soer3n.github.io/charts/testing_a/testing-dep-0.1.0.tgz
-    version: 0.1.0
   testing-nested:
   - apiVersion: v2
     appVersion: 1.16.0
