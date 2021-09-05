@@ -7,7 +7,7 @@ on:
     types: [published, created]
 
 jobs:
-  testing_a:
+  release:
     runs-on: self-hosted
     strategy:
       matrix:
