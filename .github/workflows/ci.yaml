@@ -1,8 +1,6 @@
 name: Lint and Test Charts
 
 on:
-  push:
-    branches: [ master ]
   pull_request:
     paths:
       - 'testing_a/**'
