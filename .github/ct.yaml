@@ -3,5 +3,5 @@ helm-extra-args: --timeout 600s
 debug: true
 target-branch: gh-pages
 chart-dirs:
-- testing/testing_a
-- testing/testing_b
+- testing_a
+- testing_b

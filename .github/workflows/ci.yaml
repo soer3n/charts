@@ -5,8 +5,8 @@ on:
     branches: [ gh-pages ]
   pull_request:
     paths:
-      - 'testing/testing_a/**'
-      - 'testing/testing_b/**'
+      - 'testing_a/**'
+      - 'testing_b/**'
 
 jobs:
   lint-chart:
