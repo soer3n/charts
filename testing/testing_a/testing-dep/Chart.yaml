@@ -29,5 +29,5 @@ sources:
 dependencies:
 - name: testing
   version: "0.1.0"
-  repository: "hhttps://soer3n.github.io/charts/testing_a"
+  repository: "https://soer3n.github.io/charts/testing_a"
   condition: testing.enabled
