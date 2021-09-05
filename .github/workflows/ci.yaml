@@ -6,6 +6,7 @@ on:
   pull_request:
     paths:
       - 'testing/testing_a/**'
+      - 'testing/testing_b/**'
 
 jobs:
   lint-chart:

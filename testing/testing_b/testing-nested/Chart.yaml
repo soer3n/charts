@@ -1,11 +1,11 @@
 apiVersion: v2
-name: testing-dep
+name: testing-nested
 description: A Helm chart for Kubernetes
 
 # A chart can be either an 'application' or a 'library' chart.
 #
 # Application charts are a collection of templates that can be packaged into versioned archives
-# to be deployedtes.
+# to be deployed.
 #
 # Library charts provide useful utilities or functions for the chart developer. They're included as
 # a dependency of application charts to inject those utilities and functions into the rendering
@@ -25,9 +25,3 @@ appVersion: "1.16.0"
 
 sources:
 - "https://soer3n.github.io/charts/testing_b"
-
-dependencies:
-- name: testing
-  version: "0.1.0"
-  repository: "hhttps://soer3n.github.io/charts/testing_a"
-  condition: testing.enabled

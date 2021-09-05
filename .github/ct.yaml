@@ -4,3 +4,4 @@ debug: true
 target-branch: gh-pages
 chart-dirs:
 - testing/testing_a
+- testing/testing_b

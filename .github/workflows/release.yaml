@@ -11,6 +11,7 @@ jobs:
     strategy:
       matrix:
         charts:
+        - 'testing/testing_b'
         - 'testing/testing_a'
     steps:
       - name: Checkout
