@@ -8,7 +8,7 @@ on:
 
 jobs:
   release:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         charts:
@@ -18,10 +18,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Publish Helm charts
-        uses: helm/chart-releaser-action@v1.2.1
-        env:
-          CR_TOKEN: ${{ secrets.CR_TOKEN }}
+        uses: stefanprodan/helm-gh-pages@master
         with:
+          token: ${{ secrets.CR_TOKEN }}
           charts_dir: ${{ matrix.charts }}
-          charts_repo_url: https://soer3n.github.io/charts/${{ matrix.charts}}
-          config: .github/ct.yaml
+          target_dir: ${{ matrix.charts }}
