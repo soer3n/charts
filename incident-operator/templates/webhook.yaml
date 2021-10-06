@@ -1,0 +1,49 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: incident-validation-webhook
+  labels:
+    app: incident-operator
+    component: incident-validation-webhook
+spec:
+  selector:
+    matchLabels:
+      app: incident-operator
+      component: incident-validation-webhook
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: incident-operator
+        component: incident-validation-webhook
+    spec:
+      imagePullSecrets:
+      - name: ghcrio
+      serviceAccountName: incident-operator-webhook
+      securityContext:
+        runAsUser: 65532
+      containers:
+      - image: ghcr.io/soer3n/incident-operator:6f38a52ccbbc61e058439da69e3b729cb9b07a7e
+        name: validation-webhook
+        args:
+          - "webhook"
+          - "serve"
+        securityContext:
+          allowPrivilegeEscalation: false
+        resources:
+          limits:
+            cpu: 100m
+            memory: 300Mi
+          requests:
+            cpu: 100m
+            memory: 200Mi
+        volumeMounts:
+          - mountPath: /tmp/k8s-webhook-server/serving-certs/
+            name: webhook-tls
+            readOnly: true
+      terminationGracePeriodSeconds: 10
+      volumes:
+        - name: webhook-tls
+          secret:
+            secretName: incident-webhook

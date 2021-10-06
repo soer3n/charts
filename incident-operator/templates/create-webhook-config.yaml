@@ -1,0 +1,16 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: create-webhook-config
+spec:
+  template:
+    spec:
+      containers:
+      - name: create-webhook-config
+        image: ghcr.io/soer3n/incident-operator:6f38a52ccbbc61e058439da69e3b729cb9b07a7e
+        args:
+        - "webhook"
+        - "certs"
+      restartPolicy: Never
+  backoffLimit: 4
