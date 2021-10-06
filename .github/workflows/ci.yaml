@@ -5,6 +5,7 @@ on:
     paths:
       - 'testing_a/**'
       - 'testing_b/**'
+      - 'charts/**'
 
 jobs:
   lint-chart:
