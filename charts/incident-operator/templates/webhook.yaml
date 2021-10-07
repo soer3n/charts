@@ -24,7 +24,7 @@ spec:
       securityContext:
         runAsUser: 65532
       containers:
-      - image: ghcr.io/soer3n/incident-operator:6f38a52ccbbc61e058439da69e3b729cb9b07a7e
+      - image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         name: validation-webhook
         args:
           - "webhook"

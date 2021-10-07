@@ -9,9 +9,21 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: incident-operator-webhook
+
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: incident-operator-webhook-create
   annotations:
     "helm.sh/hook-delete-policy": before-hook-creation
-    "helm.sh/hook": "pre-delete,post-delete,post-install"
+    "helm.sh/hook": "pre-install"
+
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: incident-operator-webhook-delete
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -29,12 +41,40 @@ subjects:
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
+kind: ClusterRoleBinding
 metadata:
-  name: incident-operator-webhook-rolebinding
+  name: incident-operator-webhook-create-rolebinding
   annotations:
     "helm.sh/hook-delete-policy": before-hook-creation
-    "helm.sh/hook": "pre-delete,post-delete,post-install"
+    "helm.sh/hook": "pre-install"
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: incident-operator-webhook-create-role
+subjects:
+- kind: ServiceAccount
+  name: incident-operator-webhook-create
+  namespace: "{{ .Release.Namespace }}"
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: incident-operator-webhook-delete-rolebinding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: incident-operator-webhook-delete-role
+subjects:
+- kind: ServiceAccount
+  name: incident-operator-webhook-delete
+  namespace: "{{ .Release.Namespace }}"
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: incident-operator-webhook-rolebinding
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
@@ -42,6 +82,7 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: incident-operator-webhook
+  namespace: "{{ .Release.Namespace }}"
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -96,25 +137,21 @@ rules:
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
+kind: ClusterRole
 metadata:
-  name: incident-operator-webhook-role
+  name: incident-operator-webhook-create-role
   annotations:
     "helm.sh/hook-delete-policy": before-hook-creation
-    "helm.sh/hook": "pre-delete,post-delete,post-install"
+    "helm.sh/hook": "pre-install"
 rules:
 - apiGroups:
   - ''
   resources:
-  - 'pods'
   - 'secrets'
   verbs:
   - 'update'
-  - 'patch'
   - 'create'
-  - 'delete'
   - 'get'
-  - 'list'
   - 'watch'
 - apiGroups:
   - 'admissionregistration.k8s.io'
@@ -124,3 +161,48 @@ rules:
   - 'update'
   - 'create'
   - 'get'
+  - 'watch'
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: incident-operator-webhook-delete-role
+rules:
+- apiGroups:
+  - ''
+  resources:
+  - 'secrets'
+  verbs:
+  - 'delete'
+  - 'get'
+  - 'watch'
+  - 'list'
+- apiGroups:
+  - 'admissionregistration.k8s.io'
+  resources:
+  - 'validatingwebhookconfigurations'
+  verbs:
+  - 'delete'
+  - 'get'
+  - 'watch'
+  - 'list'
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: incident-operator-webhook-role
+rules:
+- apiGroups:
+  - ''
+  resources:
+  - 'pods'
+  verbs:
+  - 'update'
+  - 'patch'
+  - 'create'
+  - 'delete'
+  - 'get'
+  - 'list'
+  - 'watch'

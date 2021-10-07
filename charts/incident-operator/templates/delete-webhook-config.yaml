@@ -2,14 +2,14 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: create-webhook-config
+  name: delete-webhook-config
   annotations:
     "helm.sh/hook-delete-policy": before-hook-creation
-    "helm.sh/hook": "pre-install"
+    "helm.sh/hook": "pre-delete"
 spec:
   template:
     spec:
-      serviceAccountName: incident-operator-webhook-create
+      serviceAccountName: incident-operator-webhook-delete
       imagePullSecrets:
       - name: ghcrio
       containers:
@@ -17,6 +17,6 @@ spec:
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         args:
         - "webhook"
-        - "certs"
+        - "delete"
       restartPolicy: Never
   backoffLimit: 3
