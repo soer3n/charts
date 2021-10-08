@@ -21,7 +21,6 @@ webhook:
   service:
     type: ClusterIP
     port: 443
-    targetPort: 9443
     name: quarantine-webhook
   resources:
     limits:

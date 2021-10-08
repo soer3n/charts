@@ -9,5 +9,5 @@ spec:
     component: incident-validation-webhook
   ports:
   - name: webhook
-    port: "{{ .Values.webhook.service.port }}"
-    targetPort: "{{ .Values.webhook.service.targetPort }}"
+    port: {{ .Values.webhook.service.port }}
+    targetPort: 9443

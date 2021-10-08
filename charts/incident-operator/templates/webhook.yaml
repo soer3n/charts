@@ -18,8 +18,6 @@ spec:
         app: incident-operator
         component: incident-validation-webhook
     spec:
-      imagePullSecrets:
-      - name: ghcrio
       serviceAccountName: incident-operator-webhook
       securityContext:
         runAsUser: 65532

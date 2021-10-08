@@ -18,8 +18,6 @@ spec:
         app: incident-operator
         component: incident-controller-manager
     spec:
-      imagePullSecrets:
-      - name: ghcrio
       serviceAccountName: incident-operator
       securityContext:
         runAsUser: 65532
