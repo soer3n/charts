@@ -45,11 +45,11 @@ spec:
           periodSeconds: 10
         resources:
           limits:
-            cpu: 100m
-            memory: 300Mi
+            cpu: "{{ .Values.operator.resources.limits.cpu }}"
+            memory: "{{ .Values.operator.resources.limits.memory }}"
           requests:
-            cpu: 100m
-            memory: 200Mi
+            cpu: "{{ .Values.operator.resources.requests.cpu }}"
+            memory: "{{ .Values.operator.resources.requests.memory }}"
       terminationGracePeriodSeconds: 10
       affinity:
         nodeAffinity:

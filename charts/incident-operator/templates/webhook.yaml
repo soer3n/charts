@@ -33,11 +33,11 @@ spec:
           allowPrivilegeEscalation: false
         resources:
           limits:
-            cpu: 100m
-            memory: 300Mi
+            cpu: "{{ .Values.webhook.resources.limits.cpu }}"
+            memory: "{{ .Values.webhook.resources.limits.memory }}"
           requests:
-            cpu: 100m
-            memory: 200Mi
+            cpu: "{{ .Values.webhook.resources.requests.cpu }}"
+            memory: "{{ .Values.webhook.resources.requests.memory }}"
         volumeMounts:
           - mountPath: /tmp/k8s-webhook-server/serving-certs/
             name: webhook-tls

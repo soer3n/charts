@@ -2,12 +2,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: quarantine-webhook
+  name: "{{ .Values.webhook.service.name }}"
 spec:
   selector:
     app: incident-operator
     component: incident-validation-webhook
   ports:
   - name: webhook
-    port: 443
-    targetPort: 9443
+    port: "{{ .Values.webhook.service.port }}"
+    targetPort: "{{ .Values.webhook.service.targetPort }}"
