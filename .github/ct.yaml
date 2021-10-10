@@ -5,3 +5,4 @@ target-branch: gh-pages
 chart-dirs:
 - testing_a
 - testing_b
+- charts

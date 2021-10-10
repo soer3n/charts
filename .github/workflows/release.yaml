@@ -7,13 +7,27 @@ on:
     types: [published, created]
 
 jobs:
-  release:
+  release_test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         charts:
         - 'testing_b'
         - 'testing_a'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Publish Helm charts
+        uses: stefanprodan/helm-gh-pages@master
+        with:
+          token: ${{ secrets.CR_TOKEN }}
+          charts_dir: ${{ matrix.charts }}
+          target_dir: ${{ matrix.charts }}
+  release:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        charts:
         - 'charts'
     steps:
       - name: Checkout
