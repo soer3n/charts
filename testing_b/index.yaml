@@ -3,14 +3,14 @@ entries:
   testing-dep:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2021-10-12T17:44:23.656281658Z"
+    created: "2021-10-12T17:57:51.392450454Z"
     dependencies:
     - condition: testing.enabled
       name: testing
       repository: https://soer3n.github.io/charts/testing_a
       version: 0.1.0
     description: A Helm chart for Kubernetes
-    digest: d795f2f2dc9761e734e221960985d74af7bf55da692bf7be1b44432dc9ea18ab
+    digest: 05f35f4d9dfaae48f7ddb31e9dadc31184fad067f3913f9714937fac354b60b9
     name: testing-dep
     sources:
     - https://soer3n.github.io/charts/testing_b
@@ -18,4 +18,4 @@ entries:
     urls:
     - https://soer3n.github.io/charts/testing_b/testing-dep-0.1.0.tgz
     version: 0.1.0
-generated: "2021-10-12T17:44:23.65234441Z"
+generated: "2021-10-12T17:57:51.388551849Z"
