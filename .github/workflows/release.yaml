@@ -25,6 +25,8 @@ jobs:
           target_dir: ${{ matrix.charts }}
   release:
     runs-on: ubuntu-latest
+    needs:
+    - release_test
     strategy:
       matrix:
         charts:
