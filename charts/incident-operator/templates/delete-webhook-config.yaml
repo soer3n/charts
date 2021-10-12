@@ -11,10 +11,12 @@ spec:
     spec:
       serviceAccountName: incident-operator-webhook-delete
       containers:
-      - name: create-webhook-config
+      - name: delete-webhook-config
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         args:
         - "webhook"
         - "delete"
+        - "--namespace"
+        - "{{ .Release.Namespace }}"
       restartPolicy: Never
   backoffLimit: 3

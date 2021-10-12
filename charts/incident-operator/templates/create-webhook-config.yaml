@@ -17,5 +17,9 @@ spec:
         args:
         - "webhook"
         - "certs"
+        - "--namespace"
+        - "{{ .Release.Namespace }}"
+        - "--service"
+        - "quarantine-webhook.{{ .Release.Namespace }}.svc"
       restartPolicy: Never
   backoffLimit: 3
