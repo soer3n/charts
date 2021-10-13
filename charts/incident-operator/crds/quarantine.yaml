@@ -1,3 +1,4 @@
+
 ---
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
@@ -64,6 +65,8 @@ spec:
                 items:
                   description: Resource defines a workload to isolate on a node
                   properties:
+                    keep:
+                      type: boolean
                     name:
                       type: string
                     namespace:
