@@ -3,6 +3,16 @@ entries:
   incident-operator:
   - apiVersion: v2
     appVersion: 0.1.2
+    created: "2021-10-13T10:43:31.177548119Z"
+    description: A Helm chart for Kubernetes
+    digest: 5aed546e756aa62654e55d1d041485fbb964388a0ca1a03ec6a715c4f21badb5
+    name: incident-operator
+    type: application
+    urls:
+    - https://soer3n.github.io/charts/charts/incident-operator-1.0.2.tgz
+    version: 1.0.2
+  - apiVersion: v2
+    appVersion: 0.1.2
     created: "2021-10-12T19:24:30.866661445Z"
     description: A Helm chart for Kubernetes
     digest: ec7ce2ac3dab8ce3764469d270a3b08908090b43b440253d9325fe845c939b13
@@ -31,4 +41,4 @@ entries:
     urls:
     - https://soer3n.github.io/charts/charts/incident-operator-0.1.0.tgz
     version: 0.1.0
-generated: "2021-10-12T19:24:30.865903232Z"
+generated: "2021-10-13T10:43:31.176839005Z"
