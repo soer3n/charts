@@ -96,6 +96,7 @@ rules:
   - ''
   resources:
   - 'pods'
+  - 'pods/eviction'
   verbs:
   - 'update'
   - 'patch'

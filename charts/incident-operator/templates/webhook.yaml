@@ -27,6 +27,8 @@ spec:
         args:
           - "webhook"
           - "serve"
+          - "--cert-dir"
+          - "{{ .Values.webhook.certDir }}"
         securityContext:
           allowPrivilegeEscalation: false
         resources:
@@ -37,7 +39,7 @@ spec:
             cpu: "{{ .Values.webhook.resources.requests.cpu }}"
             memory: "{{ .Values.webhook.resources.requests.memory }}"
         volumeMounts:
-          - mountPath: /tmp/k8s-webhook-server/serving-certs/
+          - mountPath: "{{ .Values.webhook.certDir }}"
             name: webhook-tls
             readOnly: true
       terminationGracePeriodSeconds: 10
