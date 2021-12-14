@@ -1,0 +1,55 @@
+{{- range $client := .Values.clients }}
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: delete-cert-secret-{{ $client.name }}-client
+  namespace: {{ $client.namespace }}
+  annotations:
+    "helm.sh/hook-delete-policy": hook-succeeded
+    "helm.sh/hook": "post-delete"
+    "helm.sh/hook-weight": "10"
+spec:
+  template:
+    spec:
+      serviceAccountName: delete-cert-secret-{{ $client.name }}-client
+      containers:
+      - name: delete-cert-client-secret
+        image: "bitnami/kubectl:1.21.7"
+        args:
+        - "delete"
+        - "secrets"
+        - "-n"
+        - {{ $client.namespace }}
+        - {{ $client.name }}-client-cert
+      restartPolicy: Never
+  backoffLimit: 3
+{{- end }}
+
+{{- range $server := .Values.servers }}
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: delete-cert-secret-{{ $server.name }}-server
+  namespace: {{ $server.namespace }}
+  annotations:
+    "helm.sh/hook-delete-policy": hook-succeeded
+    "helm.sh/hook": "post-delete"
+    "helm.sh/hook-weight": "10"
+spec:
+  template:
+    spec:
+      serviceAccountName: delete-cert-secret-{{ $server.name }}-server
+      containers:
+      - name: delete-cert-server-secret
+        image: "bitnami/kubectl:1.21.7"
+        args:
+        - "delete"
+        - "secrets"
+        - "-n"
+        - {{ $server.namespace }}
+        - {{ $server.name }}-server-cert
+      restartPolicy: Never
+  backoffLimit: 3
+{{- end }}

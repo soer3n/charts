@@ -1,0 +1,99 @@
+{{- range $client := .Values.clients }}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: delete-cert-secret-{{ $client.name }}-client
+  namespace: {{ $client.namespace }} 
+  annotations:
+    "helm.sh/hook-delete-policy": before-hook-creation
+    "helm.sh/hook": "post-delete"
+    "helm.sh/hook-weight": "0"
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: delete-cert-secret-{{ $client.name }}-client
+  namespace: {{ $client.namespace }} 
+  annotations:
+    "helm.sh/hook-delete-policy": before-hook-creation
+    "helm.sh/hook": "post-delete"
+    "helm.sh/hook-weight": "0"
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: delete-cert-secret-{{ $client.name }}-client
+subjects:
+- kind: ServiceAccount
+  name: delete-cert-secret-{{ $client.name }}-client
+  namespace: {{ $client.namespace }}
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: delete-cert-secret-{{ $client.name }}-client
+  namespace: {{ $client.namespace }}
+  annotations:
+    "helm.sh/hook-delete-policy": before-hook-creation
+    "helm.sh/hook": "post-delete"
+    "helm.sh/hook-weight": "0"
+rules:
+- apiGroups:
+  - ''
+  resources:
+  - 'secrets'
+  verbs:
+  - 'delete'
+{{- end }}
+
+{{- range $server := .Values.servers }}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: delete-cert-secret-{{ $server.name }}-server
+  namespace: {{ $server.namespace }} 
+  annotations:
+    "helm.sh/hook-delete-policy": before-hook-creation
+    "helm.sh/hook": "post-delete"
+    "helm.sh/hook-weight": "0"
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: delete-cert-secret-{{ $server.name }}-server
+  namespace: {{ $server.namespace }} 
+  annotations:
+    "helm.sh/hook-delete-policy": before-hook-creation
+    "helm.sh/hook": "post-delete"
+    "helm.sh/hook-weight": "0"
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: delete-cert-secret-{{ $server.name }}-server
+subjects:
+- kind: ServiceAccount
+  name: delete-cert-secret-{{ $server.name }}-server
+  namespace: {{ $server.namespace }}
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: delete-cert-secret-{{ $server.name }}-server
+  namespace: {{ $server.namespace }}
+  annotations:
+    "helm.sh/hook-delete-policy": before-hook-creation
+    "helm.sh/hook": "post-delete"
+    "helm.sh/hook-weight": "0"
+rules:
+- apiGroups:
+  - ''
+  resources:
+  - 'secrets'
+  verbs:
+  - 'delete'
+{{- end }}

@@ -1,0 +1,41 @@
+{{- range $client := .Values.clients }}
+---
+apiVersion: {{ $.Values.certmanager.apiVersion }}
+kind: Certificate
+metadata:
+  name: {{ $client.name }}-client-cert
+  namespace: {{ $client.namespace }}
+spec:
+  secretName: {{ $client.name }}-client-cert
+  duration: {{ $client.duration }}
+  renewBefore: {{ $client.renewBefore }}
+  isCA: false
+  privateKey:  
+    algorithm: {{ $client.algorithm }}
+    encoding: {{ $client.encoding }}
+    size: {{ $client.size }}
+  usages:
+    - digital signature
+    - key encipherment
+    - client auth
+  commonName: {{ $client.commonName }}
+  keystores:
+  {{- if $client.keystores.pkcs12 }}
+    pkcs12:
+      create: {{ $client.keystores.pkcs12.create }}
+      passwordSecretRef:
+        key: pw
+        name: {{ $client.name }}
+  {{- end }}
+  {{- if $client.keystores.jks }}
+    jks:
+      create: {{ $client.keystores.jks.create }}
+      passwordSecretRef:
+        key: pw
+        name: {{ $client.name }}
+  {{- end }}
+  issuerRef:
+    name: {{ $client.issuer }}
+    kind: Issuer
+    group: cert-manager.io
+{{- end }}

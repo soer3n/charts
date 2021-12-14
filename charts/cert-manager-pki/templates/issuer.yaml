@@ -1,0 +1,48 @@
+{{- range $issuer := .Values.issuer }}
+---
+apiVersion: {{ $.Values.certmanager.apiVersion }}
+kind: Issuer
+metadata:
+  name: {{ $issuer.name }}
+  namespace: {{ $issuer.namespace }}
+  annotations:
+    "helm.sh/hook-delete-policy": before-hook-creation
+    "helm.sh/hook": "pre-install,pre-rollback"
+    "helm.sh/hook-weight": "20"
+spec:
+  selfSigned: {}
+
+---
+apiVersion: {{ $.Values.certmanager.apiVersion }}
+kind: Certificate
+metadata:
+  name: {{ $issuer.name }}-certificate
+  namespace: {{ $issuer.namespace }}
+  annotations:
+    "helm.sh/hook-delete-policy": before-hook-creation
+    "helm.sh/hook": "pre-install,pre-rollback"
+    "helm.sh/hook-weight": "20"
+spec:
+  secretName: {{ $issuer.name }}-certificate
+  duration: {{ $issuer.duration }}
+  renewBefore: {{ $issuer.renewBefore }}
+  commonName: {{ $issuer.commonName }}
+  isCA: true
+  usages:
+    - digital signature
+    - key encipherment
+  issuerRef:
+    name: {{ $issuer.name }}
+    kind: Issuer
+    group: cert-manager.io
+
+---
+apiVersion: {{ $.Values.certmanager.apiVersion }}
+kind: Issuer
+metadata:
+  name: {{ $issuer.name }}-ca
+  namespace: {{ $issuer.namespace }}
+spec:
+  ca:
+    secretName: {{ $issuer.name }}-certificate
+{{- end }}

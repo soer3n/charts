@@ -1,0 +1,26 @@
+{{- range $server := .Values.servers }}
+---
+apiVersion: {{ $.Values.certmanager.apiVersion }}
+kind: Certificate
+metadata:
+  name: {{ $server.name }}-server-cert
+  namespace: {{ $server.namespace }}
+spec:
+  secretName: {{ $server.name }}-server-cert
+  duration: {{ $server.duration }}
+  renewBefore: {{ $server.renewBefore }}
+  isCA: false
+  privateKey:
+    algorithm: {{ $server.algorithm }}
+    encoding: {{ $server.encoding }}
+    size: {{ $server.size }}
+  usages:
+    - digital signature
+    - key encipherment
+    - server auth
+  commonName: {{ $server.commonName }}
+  issuerRef:
+    name: {{ $server.issuer }}
+    kind: Issuer
+    group: cert-manager.io
+{{- end }}
