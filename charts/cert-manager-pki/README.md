@@ -23,13 +23,13 @@ helm upgrade --install pki charts/cert-manager-pki
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | certmanager.apiVersion | string | `"cert-manager.io/v1"` |  |
-| clients | list | `[]` |  example: clients: - name: example-client   namespace: cert-manager   issuer: mtls-issuer   duration: 2160h # 90d   renewBefore: 360h # 15d   privateKey:     algorithm: RSA     encoding: PKCS1     size: 2048   commonName: ExampleClient   keystores:     pkcs12:       create: true |
+| clients | list | `[]` |  `example: clients: - name: example-client   namespace: cert-manager   issuer: mtls-issuer   duration: 2160h # 90d   renewBefore: 360h # 15d   privateKey:     algorithm: RSA     encoding: PKCS1     size: 2048   commonName: ExampleClient   keystores:     pkcs12:       create: true` |
 | issuer[0].commonName | string | `"mtls-ca"` |  |
 | issuer[0].duration | string | `"2880h"` |  |
 | issuer[0].name | string | `"mtls-issuer"` |  |
 | issuer[0].namespace | string | `"cert-manager"` |  |
 | issuer[0].renewBefore | string | `"360h"` |  |
-| servers | list | `[]` |  example: servers: - name: example-server   namespace: cert-manager   issuer: mtls-issuer   duration: 2160h # 90d   renewBefore: 360h # 15d   privateKey:     algorithm: RSA     encoding: PKCS1     size: 2048   commonName: ExampleServer |
+| servers | list | `[]` |  `example: servers: - name: example-server   namespace: cert-manager   issuer: mtls-issuer   duration: 2160h # 90d   renewBefore: 360h # 15d   privateKey:     algorithm: RSA     encoding: PKCS1     size: 2048   commonName: ExampleServer` |
 
 ## Usage with Ingress
 
@@ -77,10 +77,10 @@ spec:
 ```
 
 # store generated pkcs12 client file locally
-kubectl get secrets -n example example-client-client-cert -o jsonpath --template="{.data.keystore\.p12}" | base64 -d > ~/rc.p12
+kubectl get secrets -n example example-client-client-cert -o jsonpath --template="{.data.keystore\.p12}" | base64 -d > ~/example.p12
 
 # store generated jks client file locally
-kubectl get secrets -n example example-client-client-cert -o jsonpath --template="{.data.keystore\.jks}" | base64 -d > ~/rc.p12
+kubectl get secrets -n example example-client-client-cert -o jsonpath --template="{.data.keystore\.jks}" | base64 -d > ~/example.jks
 
 # get generated password for verification
 kubectl get secrets -n example example-client -o jsonpath --template="{.data.pw}" | base64 -d
