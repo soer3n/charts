@@ -30,3 +30,59 @@ helm upgrade --install pki charts/cert-manager-pki
 | issuer[0].namespace | string | `"cert-manager"` |  |
 | issuer[0].renewBefore | string | `"360h"` |  |
 | servers | list | `[]` |  example: servers: - name: example-server   namespace: cert-manager   issuer: mtls-issuer   duration: 2160h # 90d   renewBefore: 360h # 15d   privateKey:     algorithm: RSA     encoding: PKCS1     size: 2048   commonName: ExampleServer |
+
+## Usage with Ingress
+
+### nginx
+
+```
+
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: example-ingress
+  namespace: example
+  annotations:
+    acme.cert-manager.io/http01-edit-in-place: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-lab
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+    nginx.ingress.kubernetes.io/auth-tls-error-page: https://google.com
+    nginx.ingress.kubernetes.io/auth-tls-pass-certificate-to-upstream: "true"
+    nginx.ingress.kubernetes.io/auth-tls-secret: example/example-server-server-cert <-- generated server cert
+    nginx.ingress.kubernetes.io/auth-tls-verify-client: "on"
+    nginx.ingress.kubernetes.io/auth-tls-verify-depth: "1"
+spec:
+  tls:
+  - hosts:
+      - example.com
+    secretName: example-tls
+  rules:
+  - host: example.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          serviceName: example-service
+          servicePort: 8443
+
+```
+
+## keystores
+
+```
+
+# store generated pkcs12 client file locally
+kubectl get secrets -n example example-client-client-cert -o jsonpath --template="{.data.keystore\.p12}" | base64 -d > ~/rc.p12
+
+# store generated jks client file locally
+kubectl get secrets -n example example-client-client-cert -o jsonpath --template="{.data.keystore\.jks}" | base64 -d > ~/rc.p12
+
+# get generated password for verification
+kubectl get secrets -n example example-client -o jsonpath --template="{.data.pw}" | base64 -d
+
+```

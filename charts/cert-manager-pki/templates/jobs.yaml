@@ -1,3 +1,6 @@
+# https://cert-manager.io/docs/usage/certificate/#cleaning-up-secrets-when-certificates-are-deleted
+# secrets created by cert-manager needs to be deleted manually when flag --enable-certificate-owner-ref is not set
+{{- if not .Values.certmanager.ownerRef.enabled -}}
 {{- range $client := .Values.clients }}
 ---
 apiVersion: batch/v1
@@ -52,4 +55,5 @@ spec:
         - {{ $server.name }}-server-cert
       restartPolicy: Never
   backoffLimit: 3
+{{- end }}
 {{- end }}

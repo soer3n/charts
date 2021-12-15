@@ -1,5 +1,7 @@
 certmanager:
   apiVersion: cert-manager.io/v1
+  ownerRef:
+    enabled: false
 
 issuer:
 - name: mtls-issuer

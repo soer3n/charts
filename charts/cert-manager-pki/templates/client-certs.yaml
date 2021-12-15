@@ -35,7 +35,7 @@ spec:
         name: {{ $client.name }}
   {{- end }}
   issuerRef:
-    name: {{ $client.issuer }}
+    name: {{ $client.issuer }}-ca
     kind: Issuer
     group: cert-manager.io
 {{- end }}
