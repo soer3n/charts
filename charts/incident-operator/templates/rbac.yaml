@@ -97,6 +97,7 @@ rules:
   resources:
   - 'pods'
   - 'pods/eviction'
+  - 'events'
   verbs:
   - 'update'
   - 'patch'
@@ -161,6 +162,7 @@ rules:
   - 'admissionregistration.k8s.io'
   resources:
   - 'validatingwebhookconfigurations'
+  - 'mutatingwebhookconfigurations'
   verbs:
   - 'update'
   - 'create'
@@ -186,6 +188,7 @@ rules:
   - 'admissionregistration.k8s.io'
   resources:
   - 'validatingwebhookconfigurations'
+  - 'mutatingwebhookconfigurations'
   verbs:
   - 'delete'
   - 'get'

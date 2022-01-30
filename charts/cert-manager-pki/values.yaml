@@ -24,10 +24,30 @@ issuer:
 #     encoding: PKCS1
 #     size: 2048
 #   commonName: ExampleServer
+#   subject:
+#     organizations: []
+#     countries: []
+#     organizationalUnits: []
+#     localities: []
+#     provinces: []
+#     streetAddresses: []
+#     postalCodes: []
+#     serialNumber: ""
+#   dnsNames: []
+#   ipAddresses: []
+#   uris: []
+#   emailAddresses: []
+#   secretName: ""
+#   secretTemplate:
+#     annotations: {}
+#     labels: {}
+#   usages: []
+#   encodeUsagesInRequest: false
+#   revisionHistoryLimit: 1
 ################################
 servers: []
 
-###############################
+################################
 # example:
 #
 # clients:
@@ -41,8 +61,28 @@ servers: []
 #     encoding: PKCS1
 #     size: 2048
 #   commonName: ExampleClient
+#   dnsNames: []
+#   ipAddresses: []
+#   uris: []
+#   emailAddresses: []
+#   secretName: ""
+#   secretTemplate:
+#     annotations: {}
+#     labels: {}
+#   usages: []
+#   encodeUsagesInRequest: false
+#   revisionHistoryLimit: 1
+#   subject:
+#     organizations: []
+#     countries: []
+#     organizationalUnits: []
+#     localities: []
+#     provinces: []
+#     streetAddresses: []
+#     postalCodes: []
+#     serialNumber: ""
 #   keystores:
 #     pkcs12:
 #       create: true
-################################
+##################################
 clients: []
